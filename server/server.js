@@ -3,7 +3,6 @@ const app = exp();
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
 require('dotenv').config();
-
 app.use(cors());
 app.use(exp.json()); // Ensure JSON middleware is used
 
