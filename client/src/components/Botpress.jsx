@@ -4,7 +4,7 @@ const BotpressChat = () => {
   useEffect(() => {
     // Load the Botpress webchat script
     const script = document.createElement('script');
-    script.src = "https://cdn.botpress.cloud/webchat/v1/inject.js";
+    script.src = "htts://cdn.botpress.cloud/webchat/v1/inject.js";
     script.async = true;
     document.body.appendChild(script);
 
