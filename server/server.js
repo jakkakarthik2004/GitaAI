@@ -5,11 +5,10 @@ const cors = require('cors');
 require('dotenv').config();
 
 app.use(cors());
-app.use(exp.json()); // Ensure JSON middleware is used
+app.use(exp.json());
 
 const DB_URL = process.env.DB_URL;
 
-// Connect to MongoDB
 MongoClient.connect(DB_URL)
   .then(client => {
     const dbObj = client.db('cinematix');
