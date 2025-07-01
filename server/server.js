@@ -29,11 +29,9 @@ MongoClient.connect(DB_URL)
     console.error('Database connection failed:', err);
   });
 
-// Import routes
 const quizApp = require('./APIs/quizApi');
 const userApp = require("./APIs/user-api");
-// if path starts with user-api, send request to userApp
-app.use('/user-api', userApp); // application level middleware
+app.use('/user-api', userApp);
 
 // Set up route handling
 app.use('/quiz-api', quizApp);
