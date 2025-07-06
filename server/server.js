@@ -33,15 +33,12 @@ const quizApp = require('./APIs/quizApi');
 const userApp = require("./APIs/user-api");
 app.use('/user-api', userApp);
 
-// Set up route handling
 app.use('/quiz-api', quizApp);
 
-// Error-handling middleware
 app.use((err, req, res, next) => {
   res.status(500).send({ message: "error", payload: err.message });
 });
 
-// Start the server
 const PORT = process.env.PORT || 6000;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
