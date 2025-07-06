@@ -1,24 +1,19 @@
-//create express mini user api App
 const exp = require('express')
 const quizApp = exp.Router()
 const { ObjectId } = require('mongodb');
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Access your API key as an environment variable (see "Set up your API key" above)
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
 async function run(slokadata) {
-    // Filter the slokas for only those with language "en"
     const filteredSlokas = slokadata.filter(sloka => sloka.language === "en");
 
-    // Ensure we have filtered slokas to work with
     if (filteredSlokas.length === 0) {
         console.error("No slokas found for language 'en'.");
         return [];
     }
 
-    // Convert the filtered slokas into a formatted JSON string for the prompt
     const slokasString = JSON.stringify(filteredSlokas);
 
     // Prepare the prompt with the filtered and stringified sloka data
