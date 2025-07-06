@@ -1,4 +1,3 @@
-// create user api app (mini application)
 const exp = require("express");
 const nodemailer = require("nodemailer");
 const userApp = exp.Router();
@@ -22,26 +21,21 @@ const transporter = nodemailer.createTransport({
 
 let usersCollection;
 let temporaryCollection;
-// get userCollection App
 userApp.use((req, res, next) => {
   usersCollection = req.app.get("usersObj");
   temporaryCollection=req.app.get("temporaryObj");
   next();
 });
 
-// user registration route
 userApp.post(
   "/user",
   expressAsyncHandler(async (req, res) => {
-    // get user resource from client
     const newUser = req.body;
     console.log("new user",newUser);
-    // check for duplicate user based on username
     const dbuser = await usersCollection.findOne({
       emailId: newUser.emailId,
     });
     console.log(dbuser)
-    // if user found in db
     if (dbuser !== null) {
       res.send({ message: "User existed" });
     } else {
