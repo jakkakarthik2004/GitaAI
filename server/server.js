@@ -18,6 +18,8 @@ MongoClient.connect(DB_URL)
     const usersObj = dbObj.collection('usersCollection');
     const temporaryObj = dbObj.collection('temporaryCollection');
 
+    app.set('slokasObj', slokas);
+    app.set('gitaObj', gita);
     app.set('quizObj', quizcollection);
     app.set('usersObj', usersObj);
     app.set('temporaryObj', temporaryObj);
