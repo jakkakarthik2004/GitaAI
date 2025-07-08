@@ -39,8 +39,6 @@ userApp.post(
     if (dbuser !== null) {
       res.send({ message: "User existed" });
     } else {
-      // hash the password
-      // check password and confirmpassword are same
       console.log(newUser.password," ",newUser.confirmPassword)
       if (newUser.password !== newUser.confirmPassword) {
         console.log("Password and confirm password should be same");
@@ -48,9 +46,7 @@ userApp.post(
         return;
       }
       const hashedpassword = await bcryptjs.hash(newUser.password, 8);
-      //replace plain password with hashed password
       newUser.password = hashedpassword;
-      // generate otp with 4 digits
       const otp = Math.floor(1000 + Math.random() * 9000);
       console.log(otp);
       
@@ -60,8 +56,6 @@ userApp.post(
         username: newUser.username,
         otp: otp
       }
-
-      // store otp in temporary collection 
       const tempUser=await temporaryCollection.findOne({emailId: newUser.emailId});
       if(tempUser!==null){
         await temporaryCollection.updateOne({emailId: newUser.emailId},{$set: tempData});
@@ -69,7 +63,6 @@ userApp.post(
       else
       await temporaryCollection.insertOne(tempData);
 
-      // send email with otp
       const mailOptions = {
         from: process.env.EMAIL,
         to: newUser.emailId,
