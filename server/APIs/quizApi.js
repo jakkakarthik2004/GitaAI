@@ -16,7 +16,6 @@ async function run(slokadata) {
 
     const slokasString = JSON.stringify(filteredSlokas);
 
-    // Prepare the prompt with the filtered and stringified sloka data
     const prompt = `Create a quiz based on the following JSON dataset with 10 questions. Some questions should be about selecting the missing words in the sloka from four options (one correct and three incorrect). Other questions should ask the user to identify the speaker of a specific sloka. Provide the quiz in a plain JSON format with no additional text or markdown. The JSON should have the following structure:
 
     {
@@ -41,20 +40,16 @@ async function run(slokadata) {
     The dataset is: ${slokasString}. Make sure the response only includes the JSON object as shown above, without any additional text or formatting. The answer should be in options`;
 
 
-    // Call the AI model with the generated prompt
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = await response.text();
 
     try {
-        // Clean the response by removing any unwanted formatting such as backticks
         const cleanedText = text.replace(/```json|```/g, '').trim();
 
-        // Parse the cleaned response text into JSON
         const parsedData = JSON.parse(cleanedText);
 
-        // Check if the JSON has the expected structure
         if (parsedData && parsedData.quiz && Array.isArray(parsedData.quiz.questions)) {
             return parsedData.quiz.questions.map(question => ({
                 question: question.question,
