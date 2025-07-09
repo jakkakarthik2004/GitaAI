@@ -84,7 +84,6 @@ userApp.post(
   })
 );
 
-// checking the otp
 userApp.post("/check-otp",expressAsyncHandler(async(req,res)=>{
   const otp = req.body.otp;
   const tempData = await temporaryCollection.findOne({otp: otp});
@@ -132,13 +131,10 @@ userApp.put('/resend-otp/:emailId',expressAsyncHandler(async(req,res)=>{
   res.send({message:"OTP has been sent"});
 }))
 
-// user login route
 userApp.post(
   "/login",
   expressAsyncHandler(async (req, res) => {
-    // get cred object from client
     const userCred = req.body;
-    // check for username
     console.log(userCred);
     const dbuser = await usersCollection.findOne({
       emailId: userCred.emailId,
