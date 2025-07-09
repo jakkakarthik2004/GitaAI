@@ -69,7 +69,6 @@ async function run(slokadata) {
 
 
 
-//import asynchrous handler to handle asynchronous error
 const expressAsyncHandler = require('express-async-handler');
 
 require('dotenv').config()
@@ -78,7 +77,6 @@ require('dotenv').config()
 let slokas;
 let gita;
 let quizcollection;
-//get userCollection this app level middleware--- it is required by every route
 quizApp.use((req,res,next)=>{
     slokas = req.app.get('slokasObj')
     gita = req.app.get('gitaObj')
