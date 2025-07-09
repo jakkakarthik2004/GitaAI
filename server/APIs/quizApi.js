@@ -88,7 +88,7 @@ quizApp.post('/create/:chapter', expressAsyncHandler(async (req, res) => {
 
     const { chapter } = req.params;
 
-    const chapterNumber = 1; // Specify the chapter number you're looking for
+    const chapterNumber = 1;
     const slokadata = await slokas.find({ chapterNumber: chapterNumber }).toArray();
 
     const quizArray = await run(slokadata);
